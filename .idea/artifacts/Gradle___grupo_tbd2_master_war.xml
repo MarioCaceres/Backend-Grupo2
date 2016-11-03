@@ -1,0 +1,30 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Gradle : grupo_tbd2-master.war">
+    <output-path>$PROJECT_DIR$/classes/artifacts/grupo_tbd2-master</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$" />
+    </properties>
+    <root id="archive" name="grupo_tbd2-master.war">
+      <element id="javaee-facet-resources" facet="grupo_tbd2-master_main/web/Web Gradle : grupo_tbd2-master.war" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="grupo_tbd2-master_main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/build/classes/main" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Gradle: javax:javaee-api:7.0" />
+          <element id="library" level="project" name="Gradle: javax.ws.rs:javax.ws.rs-api:2.0.1" />
+          <element id="library" level="project" name="Gradle: mysql:mysql-connector-java:5.1.30" />
+          <element id="library" level="project" name="Gradle: org.mongodb:mongodb-driver:3.3.0" />
+          <element id="library" level="project" name="Gradle: com.sun.mail:javax.mail:1.5.0" />
+          <element id="library" level="project" name="Gradle: org.mongodb:bson:3.3.0" />
+          <element id="library" level="project" name="Gradle: org.mongodb:mongodb-driver-core:3.3.0" />
+          <element id="library" level="project" name="Gradle: javax.activation:activation:1.1" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/classes/artifacts/grupo_tbd2-master/exploded/grupo_tbd2-master.war/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
