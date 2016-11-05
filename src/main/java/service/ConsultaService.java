@@ -82,5 +82,22 @@ public class ConsultaService {
         indice.obtenerValores(tweets);
         return indice;
     }
+
+    @GET
+    @Path("/indices/compañias/{compañia}/periodos/inicio/{dia0}.{mes0}.{año0}/fin/{dia1}.{mes1}.{año1}")
+    @Produces({"application/xml", "application/json"})
+    public Indice findDesaprobacionPeriodo(@PathParam("compañia") String compañia,
+                                     @PathParam("dia0") Integer dia0,
+                                     @PathParam("mes0") Integer mes0,
+                                     @PathParam("año0") Integer año0,
+                                     @PathParam("dia1") Integer dia1,
+                                     @PathParam("mes1") Integer mes1,
+                                     @PathParam("año1") Integer año1){
+        Mongo mongo = new Mongo();
+        List<Tweets> tweets = mongo.searchPeriodo(compañia,dia0,mes0,año0,dia1,mes1,año1);
+        Indice indice = new Indice();
+        indice.obtenerValores(tweets);
+        return indice;
+    }
     
 }
