@@ -47,29 +47,8 @@ public class Mongo {
         return list;
     }
 
-    public List<Tweets> searchPeriodo(String compañia, int dia0, int mes0, int año0, int dia1, int mes1, int año1){
+    public List<Tweets> searchPeriodo(String compañia, Date fechaInicio, Date fechaFin){
         List<Tweets> list = new ArrayList<>();
-
-        String inicio= (dia0-1)+"-"+mes0+"-"+año0;
-        String fin= (dia1+1)+"-"+mes1+"-"+año1;
-        DateFormat formatter;
-        formatter = new SimpleDateFormat("dd-MM-yyyy");
-        Date fechaInicio = null;
-        try {
-            fechaInicio = (Date) formatter.parse(inicio);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        formatter = new SimpleDateFormat("dd-MM-yyyy");
-        Date fechaFin = null;
-        try {
-            fechaFin = (Date) formatter.parse(fin);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
         DBObject queryFecha = new BasicDBObject("created_at",
                 new BasicDBObject("$gte", fechaInicio).append("$lte", fechaFin))
                 .append("$text", new BasicDBObject("$search", compañia));
