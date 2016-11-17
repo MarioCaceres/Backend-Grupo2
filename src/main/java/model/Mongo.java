@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import com.mongodb.*;
 
@@ -42,7 +43,23 @@ public class Mongo {
 
     public List<Tweets> searchCompañia(String Compañia){
         List<Tweets> list = new ArrayList<>();
-        DBCursor cursor = this.collection.find(new BasicDBObject("$text", new BasicDBObject("$search", Compañia)));
+        String consulta = Compañia;
+        if(Objects.equals(Compañia,"movistar") | Objects.equals(Compañia,"Movistar")){
+            consulta = "@AyudaMovistarCL "+Compañia;
+        }
+        else if(Objects.equals(Compañia,"claro")| Objects.equals(Compañia,"Claro")){
+            consulta = "@miclaro_cl "+Compañia;
+        }
+        else if(Objects.equals(Compañia,"entel")| Objects.equals(Compañia,"Entel")){
+            consulta = "@entel_ayuda "+Compañia;
+        }
+        else if(Objects.equals(Compañia,"wom")| Objects.equals(Compañia,"WOM")){
+            consulta = "@WOMteAyuda "+Compañia;
+        }
+        else if(Objects.equals(Compañia,"vtr")| Objects.equals(Compañia,"VTR")){
+            consulta = "@VTRSoporte "+Compañia;
+        }
+        DBCursor cursor = this.collection.find(new BasicDBObject("$text", new BasicDBObject("$search", consulta)));
         list = obtenerDatos(cursor);
         return list;
     }
@@ -96,6 +113,7 @@ public class Mongo {
             data.setText((String) document.get("text"));
             data.setUsuario((String) ((DBObject)document.get("user")).get("screen_name"));
             Date fecha = (Date)document.get("created_at");
+            data.setId((String) document.get("id_str"));
             data.setFecha(fecha);
             list.add(data);
         }

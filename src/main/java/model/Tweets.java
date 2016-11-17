@@ -12,6 +12,7 @@ public class Tweets {
     private String text;
     private String usuario;
     private Date fecha;
+    private String id;
 
     public void setText(String text){
         this.text = text;
@@ -22,6 +23,9 @@ public class Tweets {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getText() {
         return this.text;
@@ -31,6 +35,9 @@ public class Tweets {
     }
     public Date getFecha() {
         return this.fecha;
+    }
+    public String getId() {
+        return this.id;
     }
 
 
@@ -55,5 +62,6 @@ public class Tweets {
         }
         return false;
     }
-    
+
+
 }
