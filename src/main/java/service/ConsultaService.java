@@ -20,6 +20,44 @@ import model.Mongo;
 @Path("/tweets")
 public class ConsultaService { 
     Mongo mongo = new Mongo();
+    String[] Comunas = {
+            "Cerrillos",
+            "Cerro Navia",
+            "Conchalí",
+            "El Bosque",
+            "Estación Central",
+            "Huechuraba",
+            "Independencia",
+            "La Cisterna",
+            "La Florida",
+            "La Granja",
+            "La Pintana",
+            "La Reina",
+            "Las Condes",
+            "Lo Barnechea",
+            "Lo Espejo",
+            "Lo Prado",
+            "Macul",
+            "Maipú",
+            "Ñuñoa",
+            "Pedro Aguirre Cerda",
+            "Peñalolén",
+            "Providencia",
+            "Pudahuel",
+            "Quilicura",
+            "Quinta Normal",
+            "Recoleta",
+            "Renca",
+            "San Joaquín",
+            "San Miguel",
+            "San Ramón",
+            "Santiago",
+            "Vitacura",
+            "San Bernardo",
+            "Puente Alto",
+            "Calera de Tango",
+            "Padre Hurtado"};
+
     @GET
     @Produces({"application/xml", "application/json"})
     public List <Tweets> findAll(){
@@ -34,11 +72,30 @@ public class ConsultaService {
     }
 
     @GET
+    @Path("/comunas/{comuna}")
+    @Produces({"application/xml", "application/json"})
+    public Indice findIndiceComuna(@PathParam("comuna") String comuna){
+        Indice indice = new Indice();
+        indice.obtenerValoresRandom(mongo.searchComunaTODO(comuna));
+        return indice;
+    }
+
+    @GET
     @Path("/compañias/{compañia}/comunas/{comuna}")
     @Produces({"application/xml", "application/json"})
     public List <Tweets> findComuna(@PathParam("compañia") String compañia,
                                     @PathParam("comuna") String comuna){
         return mongo.searchComuna(compañia,comuna);
+    }
+
+    @GET
+    @Path("/indices/compañias/{compañia}/comunas/{comuna}")
+    @Produces({"application/xml", "application/json"})
+    public Indice findIndiceComuna(@PathParam("compañia") String compañia,
+                                    @PathParam("comuna") String comuna){
+        Indice indice = new Indice();
+        indice.obtenerValoresRandom(mongo.searchComuna(compañia,comuna));
+        return indice;
     }
 
     @GET
@@ -96,7 +153,7 @@ public class ConsultaService {
     public Indice findDesaprobacion(@PathParam("compañia") String compañia){
         List <Tweets> tweets = mongo.searchCompañia(compañia);
         Indice indice = new Indice();
-        indice.obtenerValores(tweets);
+        indice.obtenerValoresRandom(tweets);
         return indice;
     }
 
@@ -152,6 +209,40 @@ public class ConsultaService {
 
 
         return IndicesPeriodo;
+    }
+
+
+    @GET
+    @Path("/indices/compañias/{compañia}/comunas")
+    @Produces({"application/xml", "application/json"})
+    public List<Indice> findIndiceComunaCompañia(@PathParam("compañia") String compañia){
+        List<Indice> IndicesComunas = new ArrayList<> ();
+
+        List <Tweets> tweets;
+        for (String comuna:Comunas) {
+            tweets = mongo.searchComuna(compañia, comuna);
+            Indice indice = new Indice();
+            indice.obtenerValoresRandom(tweets);
+            indice.setComuna(comuna);
+            IndicesComunas.add(indice);
+        }
+        return IndicesComunas;
+    }
+
+    @GET
+    @Path("/indices/comunas")
+    @Produces({"application/xml", "application/json"})
+    public List<Indice> findIndiceComunaTodos(){
+        List<Indice> IndicesComunas = new ArrayList<> ();
+        List <Tweets> tweets;
+        for (String comuna:Comunas) {
+            tweets = mongo.searchComunaTODO(comuna);
+            Indice indice = new Indice();
+            indice.obtenerValoresRandom(tweets);
+            indice.setComuna(comuna);
+            IndicesComunas.add(indice);
+        }
+        return IndicesComunas;
     }
     
 }

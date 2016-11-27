@@ -12,6 +12,7 @@ public class Indice {
 
     private double buenos;
     private double malos;
+    private String comuna;
 
     public double getDesaprobacion() {
         return desaprobacion;
@@ -67,7 +68,7 @@ public class Indice {
         double buenos = 0;
         Random rnd = new Random();
         for (Tweets tweet:tweets) {
-            if(rnd.nextInt(100) < 70){
+            if(rnd.nextInt(100) < 50){
                 malos = malos+1;
             }
             else{
@@ -110,5 +111,13 @@ public class Indice {
 
     public void setMalos(double malos) {
         this.malos = malos;
+    }
+
+    public String getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(String comuna) {
+        this.comuna = comuna;
     }
 }

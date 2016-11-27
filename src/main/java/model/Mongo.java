@@ -120,6 +120,15 @@ public class Mongo {
         return list;
     }
 
+    public List<Tweets> searchComunaTODO(String comuna) {
+        List<Tweets> list = new ArrayList<>();
+        String consulta = "\""+comuna+"\"";
+        DBCursor cursor = this.collection.find(new BasicDBObject("$text", new BasicDBObject("$search", consulta)));
+        list = obtenerDatos(cursor);
+        return list;
+    }
+
+
 }
 
 
