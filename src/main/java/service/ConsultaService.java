@@ -74,10 +74,8 @@ public class ConsultaService {
     @GET
     @Path("/comunas/{comuna}")
     @Produces({"application/xml", "application/json"})
-    public Indice findIndiceComuna(@PathParam("comuna") String comuna){
-        Indice indice = new Indice();
-        indice.obtenerValoresRandom(mongo.searchComunaTODO(comuna));
-        return indice;
+    public List <Tweets> findTweetsComunaTODO(@PathParam("comuna") String comuna){
+        return mongo.searchComunaTODO(comuna);
     }
 
     @GET
