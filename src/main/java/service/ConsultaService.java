@@ -13,9 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import model.Indice;
-import model.Tweets;
-import model.Mongo;
+import model.*;
 
 @Path("/tweets")
 public class ConsultaService { 
@@ -241,6 +239,27 @@ public class ConsultaService {
             IndicesComunas.add(indice);
         }
         return IndicesComunas;
+    }
+
+    @GET
+    @Path("/usuarios/{usuario}")
+    @Produces({"application/xml", "application/json"})
+    public Usuario findUser(@PathParam("usuario") String usuario){
+        return mongo.findUsuario(usuario);
+    }
+
+
+    @GET
+    @Path("/ranking")
+    @Produces({"application/xml", "application/json"})
+    public List<Usuario> getRanking(){
+        Ranking rank = new Ranking();
+        List<String> usuarios = rank.calcularRanking();
+        List<Usuario> rankingUsuarios = new ArrayList<>();
+        for (String usuario:usuarios) {
+            rankingUsuarios.add(mongo.findUsuario(usuario));
+        }
+        return rankingUsuarios;
     }
     
 }

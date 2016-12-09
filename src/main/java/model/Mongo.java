@@ -12,6 +12,7 @@ import java.util.Objects;
 import com.mongodb.*;
 
 
+
 public class Mongo {
     private com.mongodb.Mongo mongo;
     private  DB db;
@@ -126,6 +127,23 @@ public class Mongo {
         DBCursor cursor = this.collection.find(new BasicDBObject("$text", new BasicDBObject("$search", consulta)));
         list = obtenerDatos(cursor);
         return list;
+    }
+
+    public Usuario findUsuario(String name){
+        DBCursor cursor = this.collection.find(new BasicDBObject("user.name",name));
+        List<Tweets> list = new ArrayList<>();
+        Usuario usuario = new Usuario();
+        if(cursor.hasNext()){
+            DBObject document = cursor.next();
+            usuario.setName((String) ((DBObject)document.get("user")).get("name"));
+            usuario.setScreen_name((String) ((DBObject)document.get("user")).get("screen_name"));
+            usuario.setDescription((String) ((DBObject)document.get("user")).get("description"));
+            usuario.setBackground_image((String) ((DBObject)document.get("user")).get("profile_background_image_url"));
+            usuario.setProfile_image((String) ((DBObject)document.get("user")).get("profile_image_url"));
+            usuario.setId((String) ((DBObject)document.get("user")).get("profile_image_url"));
+        }
+        return usuario;
+
     }
 
 
