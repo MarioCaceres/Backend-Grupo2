@@ -130,7 +130,7 @@ public class Mongo {
     }
 
     public Usuario findUsuario(String name){
-        DBCursor cursor = this.collection.find(new BasicDBObject("user.name",name));
+        DBCursor cursor = this.collection.find(new BasicDBObject("user.screen_name",name));
         List<Tweets> list = new ArrayList<>();
         Usuario usuario = new Usuario();
         if(cursor.hasNext()){
