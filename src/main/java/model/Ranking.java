@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
-import org.neo4j.driver.v1.AuthTokens;
-import org.neo4j.driver.v1.Driver;
-import org.neo4j.driver.v1.GraphDatabase;
-import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.*;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
@@ -31,7 +28,7 @@ public class Ranking {
 	StatementResult result = session.run("match p = ()-[r3:MENTION]->(b), ()-[r2:RETWEET]->(b), ()-[r1:REPLY]->(b)  return b as nombre, (log(sum(r3.count)+sum(r2.count)+sum(r1.count))+count(r3))/(sum(r1.count)) as rank order by rank desc limit 10");
 	while(result.hasNext()){
 		Record record = result.next();
-		ranking.add(record.get("").asString().replace("u_",""))
+		ranking.add(record.get("").asString().replace("u_",""));
 	}
 	session.close();
 	driver.close();
