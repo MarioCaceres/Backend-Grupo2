@@ -11,6 +11,9 @@ public class Usuario {
     private String description;
     private String profile_image;
     private String background_image;
+    private String ranking;
+
+
 
     public String getId() {
         return id;
@@ -58,5 +61,13 @@ public class Usuario {
 
     public void setBackground_image(String background_image) {
         this.background_image = background_image;
+    }
+
+    public String getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(String ranking) {
+        this.ranking = ranking;
     }
 }

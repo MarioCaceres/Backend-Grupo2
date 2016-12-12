@@ -25,7 +25,7 @@ public class Ranking {
         //AQUI HACE LA FUNCION PARA CALCULAR EL RANKING DE LOS USUARIOS
         //OBTIENE EL NOMBRE DE LOS USUARIOS DEL RANKING Y AGREGALOS A LA LISTA
         //CON ranking.add(nombre)
-	StatementResult result = session.run("match p = ()-[r3:MENTION]->(b), ()-[r2:RETWEET]->(b), ()-[r1:REPLY]->(b)  return b.screen_name as n, (log(sum(r3.count)+sum(r2.count)+sum(r1.count))+count(r3))/(sum(r1.count)) as rank order by rank desc limit 10");
+	StatementResult result = session.run("match p = ()-[r3:MENTION]->(b), ()-[r2:RETWEET]->(b), ()-[r1:REPLY]->(b)  return b.screen_name as n, (log(sum(r3.count)+sum(r2.count)+sum(r1.count))+count(r3))/(sum(r1.count)) as rank order by rank desc limit 20");
 	while(result.hasNext()){
 		Record record = result.next();
 		String s = record.get("n").asString().replace("u_","");

@@ -241,12 +241,7 @@ public class ConsultaService {
         return IndicesComunas;
     }
 
-    @GET
-    @Path("/usuarios/{usuario}")
-    @Produces({"application/xml", "application/json"})
-    public Usuario findUser(@PathParam("usuario") String usuario){
-        return mongo.findUsuario(usuario);
-    }
+
 
 
     @GET
@@ -256,10 +251,25 @@ public class ConsultaService {
         Ranking rank = new Ranking();
         List<String> usuarios = rank.calcularRanking();
         List<Usuario> rankingUsuarios = new ArrayList<>();
+        int contador = 1;
+        ModeloTwitter tw = new ModeloTwitter();
         for (String usuario:usuarios) {
-            rankingUsuarios.add(mongo.findUsuario(usuario));
+            Usuario user = tw.showUser(usuario);
+            if(user!=null && contador<=10){
+                user.setRanking("#"+contador);
+                rankingUsuarios.add(user);
+                contador++;
+            }
         }
         return rankingUsuarios;
+    }
+
+    @GET
+    @Path("/usuarios/{usuario}")
+    @Produces({"application/xml", "application/json"})
+    public List<Tweets> findTweetsfromuser(@PathParam("usuario") String usuario){
+        return mongo.findUsuario(usuario);
+
     }
     
 }

@@ -129,10 +129,10 @@ public class Mongo {
         return list;
     }
 
-    public Usuario findUsuario(String name){
+    public List<Tweets> findUsuario(String name){
         DBCursor cursor = this.collection.find(new BasicDBObject("user.screen_name",name));
         List<Tweets> list = new ArrayList<>();
-        Usuario usuario = new Usuario();
+        /*Usuario usuario = new Usuario();
         if(cursor.hasNext()){
             DBObject document = cursor.next();
             usuario.setName((String) ((DBObject)document.get("user")).get("name"));
@@ -140,9 +140,12 @@ public class Mongo {
             usuario.setDescription((String) ((DBObject)document.get("user")).get("description"));
             usuario.setBackground_image((String) ((DBObject)document.get("user")).get("profile_background_image_url"));
             usuario.setProfile_image((String) ((DBObject)document.get("user")).get("profile_image_url"));
-            usuario.setId((String) ((DBObject)document.get("user")).get("profile_image_url"));
+            usuario.setId((String) ((DBObject)document.get("user")).get("id_str"));
         }
-        return usuario;
+        return usuario;*/
+
+        list = obtenerDatos(cursor);
+        return list;
 
     }
 
