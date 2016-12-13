@@ -34,10 +34,10 @@ public class Indice {
         double malos = 0;
         double buenos = 0;
         for (Tweets tweet:tweets) {
-            if(tweet.obtenerValoracion() == true){
+            if(tweet.obtenerValoracion() == 0){
                 malos=malos+1;
             }
-            else{
+            else if(tweet.obtenerValoracion() == 1){
                 buenos=buenos+1;
             }
         }

@@ -90,7 +90,7 @@ public class ConsultaService {
     public Indice findIndiceComuna(@PathParam("compañia") String compañia,
                                     @PathParam("comuna") String comuna){
         Indice indice = new Indice();
-        indice.obtenerValoresRandom(mongo.searchComuna(compañia,comuna));
+        indice.obtenerValores(mongo.searchComuna(compañia,comuna));
         return indice;
     }
 
@@ -149,7 +149,7 @@ public class ConsultaService {
     public Indice findDesaprobacion(@PathParam("compañia") String compañia){
         List <Tweets> tweets = mongo.searchCompañia(compañia);
         Indice indice = new Indice();
-        indice.obtenerValoresRandom(tweets);
+        indice.obtenerValores(tweets);
         return indice;
     }
 
@@ -199,7 +199,7 @@ public class ConsultaService {
                 }
             }
             Indice indice = new Indice();
-            indice.obtenerValoresRandom(temp);
+            indice.obtenerValores(temp);
             IndicesPeriodo.add(indice);
         }
 
@@ -218,7 +218,7 @@ public class ConsultaService {
         for (String comuna:Comunas) {
             tweets = mongo.searchComuna(compañia, comuna);
             Indice indice = new Indice();
-            indice.obtenerValoresRandom(tweets);
+            indice.obtenerValores(tweets);
             indice.setComuna(comuna);
             IndicesComunas.add(indice);
         }
@@ -234,7 +234,7 @@ public class ConsultaService {
         for (String comuna:Comunas) {
             tweets = mongo.searchComunaTODO(comuna);
             Indice indice = new Indice();
-            indice.obtenerValoresRandom(tweets);
+            indice.obtenerValores(tweets);
             indice.setComuna(comuna);
             IndicesComunas.add(indice);
         }
@@ -269,6 +269,17 @@ public class ConsultaService {
     @Produces({"application/xml", "application/json"})
     public List<Tweets> findTweetsfromuser(@PathParam("usuario") String usuario){
         return mongo.findUsuario(usuario);
+
+    }
+
+    @GET
+    @Path("/sss/{string1}/{string2}")
+    @Produces({"application/xml", "application/json"})
+    public List<Integer> sss(@PathParam("string1") String string1,@PathParam("string2") String string2){
+        List<Integer> lista = new ArrayList<>();
+        lista.add(SSS.calcularDistancia(string1,string2));
+        System.out.println("DISTANCIA:"+lista.get(0));
+        return lista;
 
     }
     
